@@ -1,0 +1,4 @@
+Example code to use MADX and get the beta functions around a storage ring
+for a simple array of FODO cells, and a more complicated one with
+an interaction point (IP), where MADX can be used to optimize the beam
+focus.

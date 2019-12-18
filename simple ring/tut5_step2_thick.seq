@@ -1,0 +1,36 @@
+// Main machine parameters
+circum=1000.0; // define the total length
+ncell = 8; // define number of cells 
+
+// Dipoles
+dipl = 5.0; // length
+dipangl= 2*pi/(ncell*4); // bending angle
+
+// Quadrupoles
+quadl = 3.0; // length
+quadk = 8.89E-3/quadl; // strength
+
+////////Definition of the sequence///////////
+lcell = circum/ncell;
+dip: rbend, L=dipl, ANGLE=dipangl;
+quadf: quadrupole, L=quadl, k1:=quadk;
+quadd: quadrupole, L=quadl, k1:=-quadk;
+
+fodo: sequence, refer=center, L=lcell; // note the different reference to input the sequence
+  q1: quadf, at=1*lcell/12;
+  d1: dip, at=3*lcell/12;
+  d2: dip, at=5*lcell/12;
+  q2: quadd, at=7*lcell/12;
+  d3: dip, at=9*lcell/12;
+  d4: dip, at=11*lcell/12;
+endsequence;
+
+n = 0;
+seqfodo: sequence, refer=entry, L=circum;
+  while(n < ncell)
+  {
+    fodo, at= n*lcell;
+    n = n + 1;
+  }    
+endsequence;
+

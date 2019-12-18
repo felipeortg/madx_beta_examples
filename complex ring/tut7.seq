@@ -1,0 +1,158 @@
+// arc
+circum=2000.0; // define the length
+ncell = 40; // define number of regular cells
+
+// Dipoles
+dipl = 5.0; // length
+dipangl=4*pi/(ncell*4); // angle
+
+// Quadrupoles
+quadl = 3.0; // length
+quadkf =  0.007133254557; // gradient
+quadkd = -0.007972619075; // gradient
+quadk_r10 = quadkf;
+quadk_r9  = quadkd;
+quadk_r8 = quadkf;
+quadk_r7  = quadkd;
+quadk_r6 = quadkf;
+quadk_r5  = quadkd;
+quadk_r4 = quadkf;
+quadk_r3  = quadkd;
+quadk_r2 = quadkf;
+quadk_r1  = quadkd;
+quadk_l1 = quadkf;
+quadk_l2  = quadkd;
+quadk_l3 = quadkf;
+quadk_l4  = quadkd;
+quadk_l5 = quadkf;
+quadk_l6  = quadkd;
+quadk_l7 = quadkf;
+quadk_l8  = quadkd;
+quadk_l9 = quadkf;
+quadk_l10  = quadkd;
+
+// Sextupoles
+sextl = 0.5; // length
+sextkf = 0.0008801033762; // strength (F family)
+sextkd = -0.001185807688; // strength (D family)
+
+////////Definition of the sequence///////////
+lcell = circum/ncell;
+dip: sbend, L=dipl, ANGLE=dipangl;
+quadf: quadrupole, L=quadl, k1:=quadkf;
+quadd: quadrupole, L=quadl, k1:=quadkd;
+sextf: sextupole, L=sextl, k2:=sextkf;
+sextd: sextupole, L=sextl, k2:=sextkd;
+
+fodo_dip: sequence, L=lcell;
+  q1: quadf, at=1*lcell/12;
+  s1: sextf, at=1*lcell/12+quadl/2+sextl/2;
+  d1: dip, at=3*lcell/12;
+  d2: dip, at=5*lcell/12;
+  q2: quadd, at=7*lcell/12;
+  s2: sextd, at=7*lcell/12+quadl/2+sextl/2;
+  d3: dip, at=9*lcell/12;
+  d4: dip, at=11*lcell/12;
+endsequence;
+
+fodo_r5: sequence, L=lcell;
+  quad_r10: quadrupole, L = quadl,k1:=quadk_r10, at=1*lcell/12;
+  s1: sextf, at=1*lcell/12+quadl/2+sextl/2;
+  quad_r9: quadrupole, L = quadl,k1:=quadk_r9, at=7*lcell/12;
+  s2: sextd, at=7*lcell/12+quadl/2+sextl/2;
+endsequence;
+fodo_r4: sequence, L=lcell;
+  quad_r8: quadrupole, L = quadl,k1:=quadk_r8, at=1*lcell/12;
+  s1: sextf, at=1*lcell/12+quadl/2+sextl/2;
+  quad_r7: quadrupole, L = quadl,k1:=quadk_r7, at=7*lcell/12;
+  s2: sextd, at=7*lcell/12+quadl/2+sextl/2;
+endsequence;
+fodo_r3: sequence, L=lcell;
+  quad_r6: quadrupole, L = quadl,k1:=quadk_r6, at=1*lcell/12;
+  s1: sextf, at=1*lcell/12+quadl/2+sextl/2;
+  quad_r5: quadrupole, L = quadl,k1:=quadk_r5, at=7*lcell/12;
+  s2: sextd, at=7*lcell/12+quadl/2+sextl/2;
+endsequence;
+fodo_r2: sequence, L=lcell;
+  quad_r4: quadrupole, L = quadl,k1:=quadk_r4, at=1*lcell/12;
+  s1: sextf, at=1*lcell/12+quadl/2+sextl/2;
+  quad_r3: quadrupole, L = quadl,k1:=quadk_r3, at=7*lcell/12;
+  s2: sextd, at=7*lcell/12+quadl/2+sextl/2;
+endsequence;
+fodo_r1: sequence, L=lcell;
+  quad_r2: quadrupole, L = quadl,k1:=quadk_r2, at=1*lcell/12;
+  s1: sextf, at=1*lcell/12+quadl/2+sextl/2;
+  quad_r1: quadrupole, L = quadl,k1:=quadk_r1, at=7*lcell/12;
+  s2: sextd, at=7*lcell/12+quadl/2+sextl/2;
+  IP : marker, at=10*lcell/12;
+endsequence;
+fodo_l1: sequence, L=lcell;
+  quad_l1: quadrupole, L = quadl,k1:=quadk_l1, at=1*lcell/12;
+  s1: sextf, at=1*lcell/12+quadl/2+sextl/2;
+  quad_l2: quadrupole, L = quadl,k1:=quadk_l2, at=7*lcell/12;
+  s2: sextd, at=7*lcell/12+quadl/2+sextl/2;
+endsequence;
+fodo_l2: sequence, L=lcell;
+  quad_l3: quadrupole, L = quadl,k1:=quadk_l3, at=1*lcell/12;
+  s1: sextf, at=1*lcell/12+quadl/2+sextl/2;
+  quad_l4: quadrupole, L = quadl,k1:=quadk_l4, at=7*lcell/12;
+  s2: sextd, at=7*lcell/12+quadl/2+sextl/2;
+endsequence;
+fodo_l3: sequence, L=lcell;
+  quad_l5: quadrupole, L = quadl,k1:=quadk_l5, at=1*lcell/12;
+  s1: sextf, at=1*lcell/12+quadl/2+sextl/2;
+  quad_l6: quadrupole, L = quadl,k1:=quadk_l6, at=7*lcell/12;
+  s2: sextd, at=7*lcell/12+quadl/2+sextl/2;
+endsequence;
+fodo_l4: sequence, L=lcell;
+  quad_l7: quadrupole, L = quadl,k1:=quadk_l7, at=1*lcell/12;
+  s1: sextf, at=1*lcell/12+quadl/2+sextl/2;
+  quad_l8: quadrupole, L = quadl,k1:=quadk_l8, at=7*lcell/12;
+  s2: sextd, at=7*lcell/12+quadl/2+sextl/2;
+endsequence;
+fodo_l5: sequence, L=lcell;
+  quad_l9: quadrupole, L = quadl,k1:=quadk_l9, at=1*lcell/12;
+  s1: sextf, at=1*lcell/12+quadl/2+sextl/2;
+  quad_l10: quadrupole, L = quadl,k1:=quadk_l10, at=7*lcell/12;
+  s2: sextd, at=7*lcell/12+quadl/2+sextl/2;
+endsequence;
+
+n = 2;
+arc: sequence, refer=entry, L=12*lcell;
+  fodo_dip, at = 0;
+  fodo_r5, at=lcell;
+  while(n < 10)
+  {
+    fodo_dip, at= n*lcell;
+    n = n + 1;
+  }
+  fodo_l5, at=10*lcell;
+  fodo_dip, at=11*lcell;
+endsequence;
+
+n = 0;
+ss: sequence, refer=entry, L=8*lcell;
+    ssStart : marker, at = 0;
+    fodo_r4, at=0*lcell;
+    fodo_r3, at=1*lcell;
+    fodo_r2, at=2*lcell;
+    fodo_r1, at=3*lcell;
+    fodo_l1, at=4*lcell;
+    fodo_l2, at=5*lcell;
+    fodo_l3, at=6*lcell;
+    fodo_l4, at=7*lcell;
+    ssEnd : marker, at = 8*lcell;
+endsequence;
+
+machine: sequence, refer=entry, L=circum;
+    arc, at=0;
+    ss, at=12*lcell;
+    arc, at=20*lcell;
+    ss, at=32*lcell;
+endsequence;
+
+seqedit,sequence=machine;
+flatten;
+cycle,start=IP;
+endedit;
+
