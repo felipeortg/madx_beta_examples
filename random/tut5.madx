@@ -1,0 +1,26 @@
+TITLE, 'Tutorial 5';
+option, warn=false, info=false, echo=false;
+
+// Read input file with machine description
+call file="tut5_step3.seq";
+
+// Define the beam for the machine
+Beam, particle = proton, energy = 15.938;
+
+// Use the sequence with the name: seqfodo
+use, sequence=seqfodo;   
+ 
+//*************************************************//
+survey, file=fodo.surv;
+plot, table=survey, haxis=x, vaxis=z, 
+hmin=-700, hmax=50, vmin=-250, vmax=500;
+//*************************************************//
+
+//*************************************************//
+select, flag=twiss, column=name,s,betx,bety,alfx,alfy,mux,muy,dx,dy;
+twiss, table=twiss, centre, chrom, file=twiss.out;
+plot, table=twiss, haxis=s, vaxis=betx, bety, colour=100;
+plot, table=twiss, haxis=s, vaxis=dx, dy, colour=100;
+//*************************************************//
+
+stop;
